@@ -7,8 +7,5 @@ WORKDIR /usr/app
 # Copy the jar file to the working directory
 COPY target/email-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose the port your app runs on
-EXPOSE 8083
-
 # Define the command to start your app
 CMD ["java", "-jar", "app.jar"]
