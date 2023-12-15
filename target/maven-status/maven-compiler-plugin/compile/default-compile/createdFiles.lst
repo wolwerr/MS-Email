@@ -1,7 +1,0 @@
-com\example\email\controllers\EmailController.class
-com\example\email\enums\StatusEmail.class
-com\example\email\models\EmailModel.class
-com\example\email\repositories\EmailRepository.class
-com\example\email\services\EmailService.class
-com\example\email\dtos\EmailDto.class
-com\example\email\EmailApplication.class
