@@ -1,0 +1,13 @@
+services:
+  web:
+    image: Dockerfile
+    buildArgs:
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+    port: 8083
+  postgres:
+    image: postgres:13
+    startCommand: postgres -c 'max_connections=1000'
+  rabbitmq:
+    image: rabbitmq:3-management
