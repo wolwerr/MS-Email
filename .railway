@@ -11,3 +11,12 @@ services:
     startCommand: postgres -c 'max_connections=1000'
   rabbitmq:
     image: rabbitmq:3-management
+
+build:
+  commands:
+    - mvn package
+  artifacts:
+    - name: email
+      context: .
+      docker:
+        dockerfile: Dockerfile
