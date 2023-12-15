@@ -3,7 +3,7 @@ package com.example.email.services;
 import com.example.email.enums.StatusEmail;
 import com.example.email.models.EmailModel;
 import com.example.email.repositories.EmailRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.MailException;
@@ -16,32 +16,34 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService {
 
-    @Autowired
-    EmailRepository emailRepository;
 
-    @Autowired
-    private JavaMailSender emailSender;
+    private final EmailRepository emailRepository;
 
-    public EmailModel sendEmail(EmailModel emailModel) {
+
+    private final JavaMailSender emailSender;
+
+    public void sendEmail(EmailModel emailModel) {
         emailModel.setSendDateEmail(LocalDateTime.now());
         try{
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(emailModel.getEmailFrom());
             message.setTo(emailModel.getEmailTo());
+            message.setBcc("ricardo@dtmm.com.br");
             message.setSubject(emailModel.getSubject());
-            message.setText(emailModel.getText());
-            message.setText(emailModel.getPhone());
+            String emailBody = emailModel.getText() + "\nPhone: " + emailModel.getPhone();
+            message.setText(emailBody);
             emailSender.send(message);
-
             emailModel.setStatusEmail(StatusEmail.SENT);
             System.out.println("E-mail enviado");
         } catch (MailException e){
             emailModel.setStatusEmail(StatusEmail.ERROR);
             System.out.println("Não foi possível enviar o e-mail");
         } finally {
-            return emailRepository.save(emailModel);
+            emailRepository.save(emailModel);
+            return;
         }
     }
 

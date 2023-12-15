@@ -2,8 +2,8 @@ package com.example.email.dtos;
 
 import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Data
 public class EmailDto {
@@ -15,10 +15,7 @@ public class EmailDto {
     private String emailFrom  = "ricardo@dtmm.com.br";
     @NotBlank
     @Email
-    private String emailTo = "ricardo@colorsbee.com.br";
-    @NotBlank
-    @Email
-    private String emailTo2;
+    private String emailTo;
     @NotBlank
     private String phone;
     @NotBlank
