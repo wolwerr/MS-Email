@@ -1,6 +1,4 @@
 D:\Portifólio\MS-Email\src\main\java\com\example\email\models\EmailModel.java
-D:\Portifólio\MS-Email\src\main\java\com\example\email\consumers\EmailConsumer.java
-D:\Portifólio\MS-Email\src\main\java\com\example\email\configs\RabbitMQConfig.java
 D:\Portifólio\MS-Email\src\main\java\com\example\email\enums\StatusEmail.java
 D:\Portifólio\MS-Email\src\main\java\com\example\email\dtos\EmailDto.java
 D:\Portifólio\MS-Email\src\main\java\com\example\email\repositories\EmailRepository.java

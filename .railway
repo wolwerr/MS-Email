@@ -9,8 +9,7 @@ services:
   postgres:
     image: postgres:13
     startCommand: postgres -c 'max_connections=1000'
-  rabbitmq:
-    image: rabbitmq:3-management
+
 
 build:
   commands:
