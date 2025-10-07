@@ -1,22 +1,11 @@
 version: '3.8'
 
 services:
-  email:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 8080:8080
+  app:
+    image: openjdk:17-jdk
+    container_name: springboot-app
     volumes:
-      - .:/app
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Postgres2018!
-      POSTGRES_DB: postgres
+      - ./target/app.jar:/app.jar
+    command: ["java", "-jar", "/app.jar"]
     ports:
-      - 5432:5432
+      - "8080:8080"
