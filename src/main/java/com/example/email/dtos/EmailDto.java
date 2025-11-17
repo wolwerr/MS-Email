@@ -12,7 +12,7 @@ public class EmailDto {
     private String ownerRef;
     @NotBlank
     @Email
-    private String emailFrom  = "ricardo@dtmm.com.br";
+    private String emailFrom  = "ricardo@ricardolm.net";
     @NotBlank
     @Email
     private String emailTo;

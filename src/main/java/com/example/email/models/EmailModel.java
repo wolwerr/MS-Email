@@ -17,6 +17,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "TB_EMAIL")
 public class EmailModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
