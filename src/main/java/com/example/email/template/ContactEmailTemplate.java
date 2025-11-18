@@ -7,6 +7,8 @@ import java.util.Optional;
 public class ContactEmailTemplate {
 
     public String buildHtml(EmailModel emailModel) {
+
+        // TELEFONE
         String rawPhone = Optional.ofNullable(emailModel.getPhone()).orElse("").trim();
         String phoneDigits = rawPhone.replaceAll("\\D", "");
 
@@ -16,10 +18,12 @@ public class ContactEmailTemplate {
 
         String whatsappButtonHtml = buildWhatsappButton(phoneDigits);
 
+        // SAFETY
         String safeText = Optional.ofNullable(emailModel.getText()).orElse("");
         String safePhone = rawPhone.isBlank() ? "Não informado" : rawPhone;
         String safeEmailTo = Optional.ofNullable(emailModel.getEmailTo()).orElse("Não informado");
 
+        // HTML FINAL
         return """
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -27,78 +31,55 @@ public class ContactEmailTemplate {
   <meta charset="UTF-8">
   <title>Contato recebido</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <style>
-    @media (prefers-color-scheme: dark) {
-      body { background-color:#020617 !important; color:#e5e7eb !important; }
-      .card { background-color:#0b1120 !important; color:#e5e7eb !important; }
-      .header { background-color:#020617 !important; }
-      .footer { background-color:#020617 !important; color:#9ca3af !important; }
-      .title { color:#e5e7eb !important; }
-      .label { color:#9ca3af !important; }
-      .value { color:#e5e7eb !important; }
-    }
-  </style>
 </head>
-<body style="margin:0; padding:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background-color:#f3f4f6;">
 
-  <table width="100%%" cellpadding="0" cellspacing="0" style="background-color:#f3f4f6; padding: 24px 0;">
+<body style="margin:0; padding:0; background-color:#f3f4f6; font-family:Arial, sans-serif;">
+
+  <table width="100%%" cellpadding="0" cellspacing="0" style="padding:24px 0; background-color:#f3f4f6;">
     <tr>
       <td align="center">
 
-        <table width="600" cellpadding="0" cellspacing="0" class="card"
-               style="background-color:#ffffff; border-radius:16px; overflow:hidden;
-                      box-shadow:0 12px 30px rgba(15,23,42,0.12);">
+        <table width="90%%" cellpadding="0" cellspacing="0"
+               style="width:90%%; max-width:600px; background-color:#ffffff; border-radius:16px;
+                      overflow:hidden; box-shadow:0 12px 30px rgba(15,23,42,0.12);">
 
+          <!-- CABEÇALHO -->
           <tr>
-            <td class="header"
-                style="background:linear-gradient(135deg,#0f172a,#1d4ed8);
-                       padding:24px 24px 20px 24px; text-align:left;">
-              <h1 class="title"
-                  style="margin:0; color:#ffffff; font-size:20px; font-weight:600;">
+            <td align="left"
+                style="background:linear-gradient(135deg,#0f172a,#1d4ed8); padding:24px;">
+              <h1 style="margin:0; color:#ffffff; font-size:20px; font-weight:600;">
                 Novo contato recebido
               </h1>
-              <p style="margin:4px 0 0 0; color:#cbd5f5; font-size:13px;">
+              <p style="margin:4px 0 0; color:#cbd5f5; font-size:13px;">
                 Estes são os detalhes enviados pelo formulário do sistema.
               </p>
             </td>
           </tr>
 
+          <!-- CONTEÚDO -->
           <tr>
-            <td style="padding:24px 24px 8px 24px;">
+            <td style="padding:24px;">
 
-              <p style="font-size:15px; color:#111827; margin:0 0 16px 0; line-height:1.5;">
+              <p style="font-size:16px; color:#111827; margin:0 0 18px; line-height:1.6;">
                 %s
               </p>
 
-              <table cellpadding="0" cellspacing="0" width="100%%"
-                     style="border-collapse:collapse; margin-top:8px;">
+              <div style="font-size:14px; color:#111827; margin-bottom:12px;">
+                <strong style="color:#6b7280;">Telefone:</strong> %s
+              </div>
 
-                <tr>
-                  <td style="padding:8px 0; border-bottom:1px solid #e5e7eb; font-size:13px;">
-                    <span class="label" style="font-weight:600; color:#6b7280;">Telefone:</span>
-                    <span class="value" style="color:#111827; margin-left:4px;">%s</span>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td style="padding:8px 0; border-bottom:1px solid #e5e7eb; font-size:13px;">
-                    <span class="label" style="font-weight:600; color:#6b7280;">E-mail de contato:</span>
-                    <span class="value" style="color:#111827; margin-left:4px;">%s</span>
-                  </td>
-                </tr>
-
-              </table>
+              <div style="font-size:14px; color:#111827; margin-bottom:12px;">
+                <strong style="color:#6b7280;">E-mail de contato:</strong> %s
+              </div>
 
             </td>
           </tr>
 
           %s
 
+          <!-- RODAPÉ -->
           <tr>
-            <td class="footer"
-                style="background-color:#f9fafb; padding:14px 24px; text-align:center;
-                       font-size:11px; color:#6b7280;">
+            <td style="background-color:#f9fafb; padding:16px; text-align:center; font-size:11px; color:#6b7280;">
               Este e-mail foi gerado automaticamente pelo sistema de notificações.
             </td>
           </tr>
@@ -119,6 +100,7 @@ public class ContactEmailTemplate {
         );
     }
 
+    // BOTÃO WHATSAPP
     private String buildWhatsappButton(String phoneDigits) {
         if (phoneDigits == null || phoneDigits.isBlank()) {
             return "";
