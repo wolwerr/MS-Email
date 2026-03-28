@@ -19,7 +19,6 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class EmailController {
 
     private final EmailService emailService;
